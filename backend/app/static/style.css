@@ -1,0 +1,128 @@
+body {
+  font-family: system-ui, "Microsoft JhengHei", sans-serif;
+  margin: 0;
+  padding: 16px;
+  background: #f6f7f9;
+  color: #1f2328;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-bottom: 4px;
+}
+
+.health {
+  margin-top: 0;
+  color: #57606a;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.15rem;
+}
+
+form label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+form select,
+form input,
+form textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 4px;
+  padding: 6px 8px;
+  font: inherit;
+  font-weight: normal;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.row label {
+  flex: 1;
+}
+
+button {
+  font: inherit;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #1f6feb;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #8c959f;
+  cursor: not-allowed;
+}
+
+#leave-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#leave-list li {
+  border-top: 1px solid #eaeef2;
+  padding: 10px 0;
+}
+
+.leave-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.leave-reason {
+  color: #57606a;
+  margin-top: 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.status {
+  background: #fff8c5;
+  border: 1px solid #d4a72c;
+  border-radius: 999px;
+  padding: 0 10px;
+  font-size: 0.9rem;
+}
+
+.ok {
+  color: #1a7f37;
+  font-weight: bold;
+}
+
+.error {
+  color: #cf222e;
+  font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  .row {
+    flex-direction: column;
+    gap: 0;
+  }
+}

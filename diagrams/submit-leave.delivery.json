@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "4007fb12-5ed9-4bf2-b791-7813e310f9bb",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "C:\\Users\\student\\Downloads\\leavebot-bootcamp-main\\diagrams\\submit-leave.candidate.json",
+  "output": "C:\\Users\\student\\Downloads\\leavebot-bootcamp-main\\diagrams\\submit-leave.html",
+  "specification": {
+    "sha256": "ee6ce092e3e47a09b3df70bfd586aec9672ec1d7e4e5c971a33af7d910de694a",
+    "bytes": 4853
+  },
+  "artifact": {
+    "sha256": "980f527f80310ab9c994b9722faa58999fa250c86363123f41882968c850ac0b",
+    "bytes": 824414
+  }
+}

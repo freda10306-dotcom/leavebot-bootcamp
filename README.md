@@ -18,3 +18,16 @@ Windows 使用 Codex 共用技能前，確認 `.agents/skills` 是指向 `../.cl
 `main` 只有教材與工具設定；`docs/`、`issues/`、`backend/`、`pyproject.toml` 由學生產生。checkpoint 是另外的教學快照。
 
 講義與講師教材在 [ai-vibe-coding-beginner](https://github.com/Zenobia000/SDD-agent-coding-beginner)。技能與 guard 的來源及授權見 [THIRD-PARTY-NOTICES](.claude/THIRD-PARTY-NOTICES.md)。
+
+## 本組成果：啟動 LeaveBot
+
+在 repo 根目錄執行（Windows PowerShell；macOS／Linux 把 `.venv\Scripts\python.exe` 換成 `.venv/bin/python`）：
+
+```powershell
+py -3.12 -m venv .venv
+.venv\Scripts\python.exe -m pip install -c course/01-上課/05-constraints.txt -e ".[dev]"
+.venv\Scripts\python.exe -m pytest
+.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend
+```
+
+瀏覽器開 `http://127.0.0.1:8000/`。資料庫預設在 `backend/data/leavebot.db`（不進版控），可用環境變數 `LEAVEBOT_DB` 指定其他位置。環境版本、測試與驗收證據、未完成項見 [docs/DELIVERY.md](docs/DELIVERY.md)。

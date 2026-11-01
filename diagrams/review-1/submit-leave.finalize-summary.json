@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "workflow",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\student\\Downloads\\leavebot-bootcamp-main\\diagrams\\submit-leave.candidate.json",
+    "sha256": "ee6ce092e3e47a09b3df70bfd586aec9672ec1d7e4e5c971a33af7d910de694a",
+    "bytes": 4853
+  },
+  "artifact": {
+    "path": "C:\\Users\\student\\Downloads\\leavebot-bootcamp-main\\diagrams\\submit-leave.html",
+    "sha256": "980f527f80310ab9c994b9722faa58999fa250c86363123f41882968c850ac0b",
+    "bytes": 824414
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\student\\Downloads\\leavebot-bootcamp-main\\diagrams\\review-1\\submit-leave.finalize.json",
+    "summaryReceipt": "C:\\Users\\student\\Downloads\\leavebot-bootcamp-main\\diagrams\\review-1\\submit-leave.finalize-summary.json",
+    "browserCheckReceipt": "C:\\Users\\student\\Downloads\\leavebot-bootcamp-main\\diagrams\\review-1\\submit-leave.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-01T06:01:22.672Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2306,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

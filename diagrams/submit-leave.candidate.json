@@ -1,0 +1,231 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "LeaveBot 員工提交請假流程",
+    "locale": "zh-TW",
+    "quality_profile": "showcase",
+    "output": "diagrams/submit-leave.html",
+    "legend": {
+      "entries": {
+        "frontend": {
+          "label": "員工頁面"
+        },
+        "backend": {
+          "label": "後端邏輯"
+        },
+        "security": {
+          "label": "驗證與拒絕"
+        },
+        "database": {
+          "label": "SQLite 資料"
+        }
+      }
+    }
+  },
+  "lanes": [
+    {
+      "id": "page",
+      "label": "員工頁面（瀏覽器）"
+    },
+    {
+      "id": "api",
+      "label": "後端 FastAPI"
+    },
+    {
+      "id": "reject",
+      "label": "拒絕路徑",
+      "variant": "exception"
+    },
+    {
+      "id": "store",
+      "label": "SQLite"
+    }
+  ],
+  "phases": [
+    {
+      "id": "input",
+      "label": "選員工與填表",
+      "fromCol": 0,
+      "toCol": 2
+    },
+    {
+      "id": "check",
+      "label": "後端驗證",
+      "fromCol": 3,
+      "toCol": 3,
+      "variant": "security"
+    },
+    {
+      "id": "result",
+      "label": "存檔與顯示",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "emphasis"
+    }
+  ],
+  "mainPath": [
+    "pick",
+    "fill",
+    "submit",
+    "validate",
+    "compute",
+    "insert",
+    "mylist"
+  ],
+  "nodes": [
+    {
+      "id": "pick",
+      "lane": "page",
+      "col": 0,
+      "type": "frontend",
+      "label": "選員工",
+      "sublabel": "下拉選單 FR-01"
+    },
+    {
+      "id": "fill",
+      "lane": "page",
+      "col": 1,
+      "type": "frontend",
+      "label": "填表",
+      "sublabel": "假別 日期 時段 理由"
+    },
+    {
+      "id": "submit",
+      "lane": "page",
+      "col": 2,
+      "type": "frontend",
+      "label": "送出",
+      "sublabel": "請求中停用按鈕",
+      "tag": "FR-10"
+    },
+    {
+      "id": "validate",
+      "lane": "api",
+      "col": 3,
+      "type": "security",
+      "label": "後端驗證",
+      "sublabel": "FR-02→06→03→04→05",
+      "tag": "第一個錯誤即停"
+    },
+    {
+      "id": "compute",
+      "lane": "api",
+      "col": 4,
+      "type": "backend",
+      "label": "計算天數",
+      "sublabel": "只計週一至五",
+      "tag": "狀態固定 pending"
+    },
+    {
+      "id": "refuse",
+      "lane": "reject",
+      "col": 3,
+      "type": "security",
+      "label": "拒絕",
+      "sublabel": "回傳錯誤 不寫入",
+      "tag": "FR-08"
+    },
+    {
+      "id": "showerr",
+      "lane": "reject",
+      "col": 4,
+      "type": "frontend",
+      "label": "頁面顯示錯誤",
+      "sublabel": "保留已填內容 D-04"
+    },
+    {
+      "id": "insert",
+      "lane": "store",
+      "col": 4,
+      "type": "database",
+      "label": "新增 1 筆假單",
+      "sublabel": "pending 與天數",
+      "tag": "FR-07"
+    },
+    {
+      "id": "mylist",
+      "lane": "page",
+      "col": 5,
+      "type": "frontend",
+      "label": "我的假單",
+      "sublabel": "只列本人 新到舊",
+      "tag": "FR-09"
+    }
+  ],
+  "edges": [
+    {
+      "id": "pick-fill",
+      "from": "pick",
+      "to": "fill"
+    },
+    {
+      "id": "fill-submit",
+      "from": "fill",
+      "to": "submit"
+    },
+    {
+      "id": "submit-validate",
+      "from": "submit",
+      "to": "validate",
+      "label": "POST /api",
+      "variant": "emphasis"
+    },
+    {
+      "id": "validate-compute",
+      "from": "validate",
+      "to": "compute",
+      "label": "全部通過",
+      "variant": "emphasis"
+    },
+    {
+      "id": "validate-refuse",
+      "from": "validate",
+      "to": "refuse",
+      "label": "任一失敗",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "refuse-showerr",
+      "from": "refuse",
+      "to": "showerr",
+      "label": "錯誤訊息",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "compute-insert",
+      "from": "compute",
+      "to": "insert",
+      "label": "寫入"
+    },
+    {
+      "id": "insert-mylist",
+      "from": "insert",
+      "to": "mylist",
+      "label": "依員工查詢",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "拒絕時資料不變",
+      "items": [
+        "驗證順序 FR-02 → FR-06 → FR-03 → FR-04 → FR-05",
+        "任一規則失敗：不新增也不修改資料（FR-08）",
+        "使用者修正後可再送出，表單內容保留（D-04）"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "成功與列表",
+      "items": [
+        "天數與狀態由伺服器決定，客戶端送來的不採用（FR-07）",
+        "成功後重新載入所選員工的假單，新送出的在最前（FR-09）",
+        "後端不去重，相同內容再送會新增一筆（FR-10）"
+      ]
+    }
+  ]
+}

@@ -35,3 +35,12 @@ Claude Code 經 `CLAUDE.md` 載入本檔；Codex 直接讀本檔。通用 skills
 ## 本專案決策（D2 拆票時由小組補充）
 
 只記本組已確認且可檢查的規則，例如「半天假只接受同一天」。引用對應 SRS/SDS，避免複寫整份規格。
+
+2026-11-01 小組確認：
+- 理由選填；先去除前後空白再以字元計數，最多 100 字（D-01、D-05、D-07；SRS FR-06）。上限與錯誤訊息都由 `app.rules.REASON_MAX_CHARS` 產生；前端不加 `maxlength`。
+- 接受過去日期；主線業務規則不讀「今天」，不使用 `LEAVEBOT_TODAY`（D-02）。
+- 後端不去重；前端送出期間停用按鈕，完成後恢復（D-03；SRS FR-10）。
+- 驗證依 FR-02→06→03→04→05 的順序，只回第一個錯誤；業務驗證錯誤一律 422，本文為 `{"error":{"code","field","message"}}`，錯誤碼照 SDS 錯誤碼表（SAD ADR-01）。
+- 狀態固定 `pending`、天數由伺服器計算；請求中的 `status`、`days` 等未知欄位忽略，不報錯（SRS FR-07）。
+- 員工名單固定為 E001 王小明、E002 李小華、E003 陳大同；「我的假單」依 `id` 由大到小（SDS 資料模型；SAD ADR-02）。
+- 測試以 `create_app(db_path=暫存路徑, now=固定時鐘)` 建立 app，不碰 `backend/data/`（SRS NFR-03；SDS「驗證責任與注入」）。

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LeaveBot 請假系統</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>LeaveBot 請假系統</h1>
+      <p class="health">伺服器狀態：<span id="health-status">檢查中…</span></p>
+    </header>
+
+    <section class="card">
+      <h2>申請請假</h2>
+      <form id="leave-form" novalidate>
+        <label>員工
+          <select id="employee" name="employee_id">
+            <option value="">請選擇員工</option>
+          </select>
+        </label>
+
+        <label>假別
+          <select id="leave-type" name="leave_type">
+            <option value="">請選擇假別</option>
+            <option value="annual">特休</option>
+            <option value="personal">事假</option>
+            <option value="sick">病假</option>
+          </select>
+        </label>
+
+        <div class="row">
+          <label>開始日期
+            <input type="date" id="start-date" name="start_date">
+          </label>
+          <label>結束日期
+            <input type="date" id="end-date" name="end_date">
+          </label>
+        </div>
+
+        <label>時段
+          <select id="period" name="period">
+            <option value="">請選擇時段</option>
+            <option value="full">整天</option>
+            <option value="am">上午</option>
+            <option value="pm">下午</option>
+          </select>
+        </label>
+
+        <label>理由（選填，最多 100 字）
+          <textarea id="reason" name="reason" rows="3"></textarea>
+        </label>
+
+        <button type="submit" id="submit-btn">送出</button>
+        <p id="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>我的假單</h2>
+      <p id="list-message">請先選擇員工</p>
+      <ul id="leave-list"></ul>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
